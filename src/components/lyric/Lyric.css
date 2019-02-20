@@ -1,0 +1,4 @@
+#musicLyric{ width: 100%; position: absolute; top:50px; bottom:65px; background:url(/images/detailsBg.jpg); background-size: cover; color:white; overflow-y: hidden; }
+#musicLyric ul{ width:100%; text-align:center; color:white; font-size:14px; position:absolute; top:0; left:0; transition:.2s; -webkit-transition:.2s;} 
+#musicLyric li{ margin-top:15px;}
+#musicLyric li.active{ color:#00ffff;}

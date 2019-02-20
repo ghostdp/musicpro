@@ -1,0 +1,5 @@
+#musicAudio{ width:100%; height: 65px; background:url(/images/list_audioBg.png); position: absolute; left:0; bottom: 0; display: flex; }
+#musicAudio .audioPlay{ width:40px;  height:40px; background:url(/images/list_audioPause.png); background-size:cover; margin:10px 20px;}
+#musicAudio .audioProgress{ height:2px; background:white; position: relative; flex:1; top:31px; margin-right: 20px;}
+#musicAudio .audioBar{ width:15px; height:15px; background:#29abe2; border-radius:50%; position:absolute; left:0; top:0; margin:-7px; }
+#musicAudio .audioNow{ width:0; height:2px; background:#29abe2; position:absolute; left:0; top:0; }

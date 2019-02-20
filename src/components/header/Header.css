@@ -1,0 +1,3 @@
+#musicHeader{ width:100%; height: 50px; background:black; position: absolute; left: 0; top: 0; color:white; text-align: center; line-height: 50px; font-size: 18px;}
+#musicHeader span{ position: absolute; left: 10px; }
+#musicHeader a{ color:inherit;}

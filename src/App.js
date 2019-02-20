@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as  Router , Route , Switch , Redirect } from 'react-router-dom';
+
+import Header from './components/header/Header.js';
+import List from './components/list/List.js';
+import Audio from './components/audio/Audio.js';
+import Lyric from './components/lyric/Lyric.js';
+
+// 项目用到的数据接口： https://api.hibai.cn/api/demo/index
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <div id="main">
+          <Header />
+          <Switch>
+            <Route path="/list" component={ List } />
+            <Route path="/lyric/:id" component={ Lyric } />
+            <Redirect from="/*" to="/list" />
+          </Switch>
+          <Audio />
+        </div>
+      </Router>
     );
   }
 }

@@ -1,0 +1,7 @@
+#musicList{ width: 100%; position: absolute; top:50px; bottom:65px; background:url(/images/bg.jpg); background-size: cover; color:white; overflow-y: auto; }
+#musicList li{ height:60px; border-bottom: 1px #999 solid; background: rgba(0,0,0,0.5); }
+#musicList li.active{ border-left:4px lightblue solid; }
+#musicList .listOrder{ width:60px; float: left; font-size: 20px; line-height: 60px; text-align: center; }
+#musicList .listName{ float: left; }
+#musicList .listName h3{ margin-top: 10px; width:200px; white-space: nowrap; overflow: hidden; text-overflow:ellipsis; }
+#musicList .listName p{}
