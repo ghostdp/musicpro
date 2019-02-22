@@ -8,6 +8,7 @@ import Audio from './components/audio/Audio.js';
 import Lyric from './components/lyric/Lyric.js';
 
 // 项目用到的数据接口： https://api.hibai.cn/api/demo/index
+// 项目的github地址：https://github.com/ghostdp/musicpro
 
 class App extends Component {
   render() {

@@ -2,12 +2,14 @@ import React , { Component } from 'react';
 import axios from 'axios';
 import './List.css';
 import { connect } from 'react-redux';
+import Loading from '../loading/Loading.js';
 
 class ListUI extends Component {
 	constructor(){
 		super();
 		this.state = {
-			musicList : []
+			musicList : [],
+			isLoading : true
 		};
 		this.isMove = false;
 		this.handleMove = this.handleMove.bind(this);
@@ -25,6 +27,8 @@ class ListUI extends Component {
 						</div>
 					</li>*/}
 					{
+						this.state.isLoading ? <Loading/> : 
+
 						this.state.musicList.map((item,index)=>{
 							return (
 								<li key={item.id} onTouchMove={ this.handleMove } onTouchEnd={ ()=>{this.handleEnd(item.id)} }>
@@ -51,7 +55,8 @@ class ListUI extends Component {
 			if( res.data.ErrCode === 'OK' ){
 				var musicList = res.data.Body.songs;
 				this.setState({
-					musicList
+					musicList,
+					isLoading : false
 				});
 			}
 		});
@@ -68,6 +73,8 @@ class ListUI extends Component {
 		else{    //点击的时候
 			//编程式路由
 			this.props.history.push('/lyric/' + id);
+			this.props.musicNameIdFn(id);
+			this.props.isMusicPlayFn();
 		}
 	}
 }
@@ -81,6 +88,12 @@ function mapDispatchToProps(dispatch){
 	return {
 		headerArrowFn(){
 			dispatch({ type : 'HEADERARROW_CHANGE' , payload : false });
+		},
+		musicNameIdFn(id){
+			dispatch({ type : 'MUSICNAMEID_CHANGE' , payload : id });
+		},
+		isMusicPlayFn(){
+			dispatch({ type : 'ISMUSICPLAY_CHANGE' , payload : true });
 		}
 	};
 }

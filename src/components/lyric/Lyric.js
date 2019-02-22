@@ -8,16 +8,17 @@ class LyricUI extends Component {
 		super();
 		this.state = {
 			/*{ time : [00:11.22] , lyric : 'aaaa' }*/
-			lyricList : []
+			lyricList : [],
+			active : -1
 		};
 	}
 	render(){
 		return (
 			<div id="musicLyric">
-				<ul>
+				<ul ref="musicLyricUl">
 					{
 						this.state.lyricList.map((item,index)=>{
-							return <li key={index}>{item.lyric}</li>;
+							return <li key={index} className={ this.state.active === index ? 'active' : '' }>{item.lyric}</li>;
 						})
 					}
 				</ul>
@@ -35,26 +36,78 @@ class LyricUI extends Component {
 		});
 		//触发箭头的状态管理
 		this.props.headerArrowFn();
+		this.props.musicNameIdFn(id);
+	}
+	componentDidUpdate(){
+
+		if( this.state.active !== -1 ){
+			return false;
+		}
+
+		if(this.props.isMusicPlay){
+			this.lyricPlay();
+		}
+		else{
+			this.lyricPause();   // 暂停的时候不触发
+		}
+	}
+	componentWillUnmount(){
+		this.lyricPause();
 	}
 	formatLyricData(lyrics){
 		var result = [];
+		
 		var re = /\[([^\]]+)\]([^[]+)/g;
-		lyrics.replace(re,function($0,$1,$2){
-			result.push({ time : $1 , lyric : $2 });
+
+		lyrics.replace(re,($0,$1,$2)=>{
+			result.push({ time : this.formatTimeToSec($1) , lyric : $2 });
 		});
 		return result;
+	}
+	formatTimeToSec(time){
+		var arr = time.split(':');
+		return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
+	}
+	lyricPlay(){
+		this.playing();
+		this.timer = setInterval( this.playing.bind(this) , 500 );
+	}
+	lyricPause(){
+		clearInterval(this.timer);
+	}
+	playing(){
+		//console.log(123);
+		var lyricList = this.state.lyricList;
+		var audio = document.getElementById('audio');
+		var musicLyricUl = this.refs.musicLyricUl;
+		var musicLyricLi = musicLyricUl.getElementsByTagName('li')[0];
+
+		for(var i=0;i<lyricList.length;i++){
+			if( lyricList[i].time < audio.currentTime && lyricList[i+1].time > audio.currentTime ){
+				//console.log( lyricList[i].lyric );
+				this.setState({
+					active : i
+				});
+				if( i > 5 ){
+					musicLyricUl.style.top = - (i-5) * (musicLyricLi.offsetHeight + 15) + 'px';
+				}
+			}
+		}
 	}
 }
 
 function mapStateToProps(state){
 	return {
-		
+		isMusicPlay : state.isMusicPlay
 	};
 }
 function mapDispatchToProps(dispatch){
 	return {
 		headerArrowFn(){
 			dispatch({ type : 'HEADERARROW_CHANGE' , payload : true });
+		},
+		musicNameIdFn(id){
+			dispatch({ type : 'MUSICNAMEID_CHANGE' , payload : id });
 		}
 	};
 }

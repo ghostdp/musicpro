@@ -8,9 +8,28 @@ function headerArrowReducer(state=false,action){
 		return state;
 	}
 }
+function musicNameIdReducer(state='',action){
+	if( action.type === "MUSICNAMEID_CHANGE" ){
+		return action.payload;
+	}
+	else{
+		return state;
+	}
+}
+
+function isMusicPlayReducer(state=false,action){
+	if( action.type === "ISMUSICPLAY_CHANGE" ){
+		return action.payload;
+	}
+	else{
+		return state;
+	}
+}
 
 var reducers = combineReducers({
-	headerArrow : headerArrowReducer
+	headerArrow : headerArrowReducer,
+	musicNameId : musicNameIdReducer,
+	isMusicPlay : isMusicPlayReducer
 });
 
 var store = createStore(reducers , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() );
