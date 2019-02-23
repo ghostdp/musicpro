@@ -11,11 +11,12 @@ class LyricUI extends Component {
 			lyricList : [],
 			active : -1
 		};
+		this.handleTouch = this.handleTouch.bind(this);
 	}
 	render(){
 		return (
 			<div id="musicLyric">
-				<ul ref="musicLyricUl">
+				<ul ref="musicLyricUl" onTouchStart={ this.handleTouch }>
 					{
 						this.state.lyricList.map((item,index)=>{
 							return <li key={index} className={ this.state.active === index ? 'active' : '' }>{item.lyric}</li>;
@@ -37,14 +38,17 @@ class LyricUI extends Component {
 		//触发箭头的状态管理
 		this.props.headerArrowFn();
 		this.props.musicNameIdFn(id);
-	}
-	componentDidUpdate(){
-
-		if( this.state.active !== -1 ){
-			return false;
-		}
 
 		if(this.props.isMusicPlay){
+			this.lyricPlay();
+		}
+		else{
+			this.lyricPause();   // 暂停的时候不触发
+		}
+
+	}
+	componentWillReceiveProps(nextProps){  //当传递进入当前组件的props发生变化的时候
+		if(nextProps.isMusicPlay){
 			this.lyricPlay();
 		}
 		else{
@@ -76,7 +80,6 @@ class LyricUI extends Component {
 		clearInterval(this.timer);
 	}
 	playing(){
-		//console.log(123);
 		var lyricList = this.state.lyricList;
 		var audio = document.getElementById('audio');
 		var musicLyricUl = this.refs.musicLyricUl;
@@ -93,6 +96,10 @@ class LyricUI extends Component {
 				}
 			}
 		}
+	}
+	handleTouch(){
+		var id = this.props.match.params.id;
+		this.props.history.push('/pic/' + id);
 	}
 }
 

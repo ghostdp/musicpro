@@ -18,7 +18,7 @@ class HeaderUI extends Component {
 	render(){
 		return (
 			<div id="musicHeader">
-			{ this.props.headerArrow && <NavLink to="/list"><span>&lt;</span></NavLink> } 巅峰榜 · 热歌
+			{ this.props.headerArrow && <NavLink to="/list"><span>&lt;</span></NavLink> } { this.props.musicName }
 			</div>
 		);
 	}
@@ -26,7 +26,8 @@ class HeaderUI extends Component {
 
 function mapStateToProps(state){
 	return {
-		headerArrow : state.headerArrow
+		headerArrow : state.headerArrow,
+		musicName : state.musicName
 	};
 }
 function mapDispatchToProps(dispatch){

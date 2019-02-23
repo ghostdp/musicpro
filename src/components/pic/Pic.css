@@ -1,0 +1,8 @@
+#musicPic{ width: 100%; position: absolute; top:50px; bottom:65px; background:url(/images/detailsBg.jpg); background-size: cover; color:white; overflow-y: hidden; display: flex;}
+#musicPic div{ width:250px; height:250px; margin:auto; border-radius: 50%; overflow: hidden; animation:10s linear move infinite; animation-play-state:paused;}
+#musicPic div img{ width:100%;}
+
+@keyframes move{
+	0%{ transform : rotate(0deg); }
+	100%{ transform : rotate(360deg); }
+}

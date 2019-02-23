@@ -26,10 +26,20 @@ function isMusicPlayReducer(state=false,action){
 	}
 }
 
+function musicNameReducer(state='巅峰榜 · 热歌',action){
+	if( action.type === 'MUSICNAME_CHANGE' ){
+		return action.payload;
+	}
+	else{
+		return state;
+	}
+}
+
 var reducers = combineReducers({
 	headerArrow : headerArrowReducer,
 	musicNameId : musicNameIdReducer,
-	isMusicPlay : isMusicPlayReducer
+	isMusicPlay : isMusicPlayReducer,
+	musicName : musicNameReducer
 });
 
 var store = createStore(reducers , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() );
